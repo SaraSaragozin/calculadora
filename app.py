@@ -16,7 +16,7 @@ def calculate():
     except Exception as e:
         return jsonify(result='Error')
 
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 8712))
-    app.run(debug=True, port=port)
+# Elimina el bloque "if __name__ == '__main__':"
+port = int(os.environ.get("PORT", 5000))  # Utiliza el puerto predeterminado de Heroku (5000)
+app.run(debug=True, host='0.0.0.0', port=port)  # Cambia host a '0.0.0.0' para que sea accesible desde cualquier dirección
 
