@@ -12,7 +12,7 @@ Instrucciones para instalar tu proyecto.
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/tu-proyecto.git
+git clone https://github.com/JonathanP06511/calculadora.git
 
 # Ejecutar la aplicación
 python app.py
