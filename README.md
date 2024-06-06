@@ -8,7 +8,7 @@ Calculadora basica en Python-Flask
 
 ## Instalación
 
-Instrucciones para instalar tu proyecto.
+Instrucciones para instalar
 
 ```bash
 # Clonar el repositorio
