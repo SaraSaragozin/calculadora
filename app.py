@@ -11,6 +11,9 @@ def index():
 def calculate():
     try:
         expression = request.form['expression']
+        # Verificar longitud de la expresión antes de evaluarla
+        if len(expression) > 20:
+            return jsonify(result='Error: La expresión es demasiado larga')
         result = eval(expression)
         return jsonify(result=str(result))
     except Exception as e:
@@ -19,4 +22,5 @@ def calculate():
 # Elimina el bloque "if __name__ == '__main__':"
 port = int(os.environ.get("PORT", 5000))  # Utiliza el puerto predeterminado de Heroku (5000)
 app.run(debug=True, host='0.0.0.0', port=port)  # Cambia host a '0.0.0.0' para que sea accesible desde cualquier dirección
+
 

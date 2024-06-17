@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     window.appendCharacter = function(character) {
         const currentValue = display.value;
+        if (currentValue.length >= 20) {
+            return;  // No agregar más caracteres si la longitud de la expresión es 20 o más
+        }
+
         const lastOperand = currentValue.split(/[+\-*/]/).pop();
 
         // Verificar si el carácter es un dígito, un punto decimal, una operación matemática, o un paréntesis
@@ -22,6 +26,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     if (openParens > closeParens && !/[+\-*/]$/.test(currentValue)) {
                         display.value += character;
                     }
+                } else if (character === '-' && (currentValue === '' || /[+\-*/(]$/.test(currentValue))) {
+                    // Permitir el signo negativo si es el primer carácter o después de un operador o un paréntesis de apertura
+                    display.value += character;
                 } else if (!/[+\-*/]$/.test(currentValue) && currentValue !== '') {
                     // Permitir operaciones matemáticas si no es el último carácter y el valor actual no está vacío
                     display.value += character;
