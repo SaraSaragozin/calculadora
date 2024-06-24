@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     window.appendCharacter = function (character) {
         const currentValue = display.value;
-        if (currentValue.length >= 17) {
+        if (currentValue.length >= 18) {
             return;  // No agregar más caracteres si la longitud de la expresión es 17 o más
         }
 
