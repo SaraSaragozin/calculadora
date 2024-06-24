@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let result = eval(expression);
     
             // Verifica si el resultado es un número
-            if (typeof result === 'number' && !isNaN(result)) {
+            if (typeof result === 'number' && !isNaN(result) && result !== Infinity && result !== -Infinity) {
                 // Convierte el resultado a string para manipular los ceros innecesarios
                 let resultString = result.toString();
     
                 // Elimina ceros innecesarios al final del resultado
-                resultString = resultString.includes('.') ? resultString.replace(/(\.[0-9][1-9])0+$|\.0$/, "$1") : resultString;
+                resultString = resultString.includes('.') ? resultString.replace(/(\.[0-9]*[1-9])0+$|\.0+$/, "$1") : resultString;
     
                 display.value = resultString;
             } else {
@@ -69,5 +69,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
             display.value = 'Error';
         }
     };
-    
 });
