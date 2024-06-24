@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request, jsonify
 import sympy as sp
 
-app = Flask(_name_) 
+app = Flask(__name__)
 
 @app.route('/')
 def index():
