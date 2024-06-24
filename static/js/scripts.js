@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const display = document.getElementById('display');
 
-    window.appendCharacter = function(character) {
+    window.appendCharacter = function (character) {
         const currentValue = display.value;
-        if (currentValue.length >= 20) {
-            return;  // No agregar más caracteres si la longitud de la expresión es 20 o más
+        if (currentValue.length >= 17) {
+            return;  // No agregar más caracteres si la longitud de la expresión es 17 o más
         }
 
         const lastChar = currentValue.slice(-1);
@@ -18,9 +18,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const lastOperand = currentValue.split(/[+\-*/]/).pop();
 
         if (/\d/.test(character) || (character === '.' && lastOperand.indexOf('.') === -1) || /[+\-*/()]/.test(character)) {
-            const integerDigits = lastOperand.split('.')[0].length;
-            const decimalDigits = lastOperand.split('.')[1] ? lastOperand.split('.')[1].length : 0;
-
             if (/[+\-*/()]/.test(character)) {
                 if (character === '(') {
                     display.value += character;
@@ -35,42 +32,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 } else if (!/[+\-*/]$/.test(currentValue) && currentValue !== '') {
                     display.value += character;
                 }
-            } else if (lastOperand.includes('.')) {
-                if (decimalDigits < 5) {
-                    display.value += character;
-                }
             } else {
-                if (integerDigits < 9 || (integerDigits < 10 && character === '.')) {
-                    display.value += character;
-                }
+                display.value += character;
             }
         }
     };
 
-    window.clearDisplay = function() {
+    window.clearDisplay = function () {
         display.value = '';
     };
 
-    window.backspace = function() {
+    window.backspace = function () {
         display.value = display.value.slice(0, -1);
     };
 
-    window.calculateResult = function() {
+    window.calculateResult = function () {
         const expression = display.value;
-        fetch('/calculate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `expression=${encodeURIComponent(expression)}`,
-        })
-        .then(response => response.json())
-        .then(data => {
-            display.value = data.result;
-        })
-        .catch(error => {
+    
+        try {
+            // Evalúa la expresión utilizando eval
+            let result = eval(expression);
+    
+            // Verifica si el resultado es un número
+            if (typeof result === 'number' && !isNaN(result)) {
+                // Convierte el resultado a string para manipular los ceros innecesarios
+                let resultString = result.toString();
+    
+                // Elimina ceros innecesarios al final del resultado
+                resultString = resultString.includes('.') ? resultString.replace(/(\.[0-9][1-9])0+$|\.0$/, "$1") : resultString;
+    
+                display.value = resultString;
+            } else {
+                throw new Error('Invalid expression');
+            }
+        } catch (error) {
             display.value = 'Error';
-        });
+        }
     };
+    
 });
-
