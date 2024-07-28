@@ -1,4 +1,4 @@
-# Nombre del Proyecto
+# CALCBAS - Calculadora
 
 ![Logo del Proyecto](img/foto.png)
 
